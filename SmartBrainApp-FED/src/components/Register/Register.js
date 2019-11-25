@@ -1,4 +1,5 @@
 import React from 'react';
+import Api from '../../api/Api'
 
 class Register extends React.Component {
   constructor(props) {
@@ -23,15 +24,8 @@ class Register extends React.Component {
   }
 
   onSubmitSignIn = () => {
-    fetch('http://localhost:3000/register', {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
-        name: this.state.name
-      })
-    })
+    const {name, email, password} = this.state;
+    Api.fetchRegister({email,name,password})
       .then(response => response.json())
       .then(user => {
         if (user.id) {
