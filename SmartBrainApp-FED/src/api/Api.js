@@ -1,4 +1,4 @@
-const baseUrl = "http//localhost:3000";
+const baseUrl = "http://localhost:3000";
 class Api {
   static fetchImageUrl = (input) => fetch(`${baseUrl}/imageurl`, {
     method: 'post',
