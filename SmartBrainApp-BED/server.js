@@ -13,17 +13,17 @@ const db = knex({
   client: 'pg',
   connection: {
     host : '127.0.0.1',
-    user : 'aneagoie',
-    password : '',
-    database : 'smart-brain'
+    user : 'postgres',
+    password : 'abcd',
+    database : 'smart-brain1'
   }
 });
 
 const app = express();
 
-app.use(cors())
+app.use(cors({origin: 'http://localhost:3001'}));
 app.use(bodyParser.json());
-
+debugger;
 app.get('/', (req, res)=> { res.send(db.users) })
 app.post('/signin', signin.handleSignin(db, bcrypt))
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
