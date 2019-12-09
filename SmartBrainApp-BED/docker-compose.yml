@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  # Second Service
+  # postgres
+  db:
+    environment:
+      # POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: abcd
+      POSTGRES_DB: smart-brain2
+    build: ./postgres
+    ports:
+      - "5432:5432"
+
+  # backend API
+  smart-brain-api:
+    container_name: backend
+    depends_on:
+      - db
+    environment:
+      POSTGRES_URI: postgres://postgres:abcd@db:5432/smart-brain2
+      POSTGRES_HOST: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: abcd
+      POSTGRES_DB: smart-brain2
+    links:
+      - db
+    build: ./
+    command: npm start
+    working_dir: /meisam/smartbrainapi
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/meisam/smartbrainapi
